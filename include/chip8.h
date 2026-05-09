@@ -19,3 +19,5 @@ struct Chip8 {
     void loadFontset();
     void reset();
 };
+
+
