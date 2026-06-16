@@ -17,6 +17,9 @@ struct Chip8 {
     uint8_t sound_timer {};
 
     void loadFontset();
+    bool loadROM(const char *filename);
+
+
     void reset();
 };
 
