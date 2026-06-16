@@ -1,4 +1,4 @@
-// tests/test_phase2.cpp
+// tests/test_cpu.cpp
 #include <cassert>
 #include <cstdio>
 #include "chip8.h"
@@ -64,6 +64,6 @@ int main() {
     test_reset_sp_zero();
     test_fontset_loaded();
     test_memory_below_rom_is_zero();
-    printf("\nAll Phase 2 tests passed.\n");
+    printf("\nAll CPU tests passed.\n");
     return 0;
 }
