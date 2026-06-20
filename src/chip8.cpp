@@ -78,3 +78,95 @@ bool Chip8::loadROM(const char* filename) {
     file.close();
     return true;
 }
+
+// TODO: optimize rom copying
+void Chip8::emulateCycle() {
+
+    // fetch();
+    // decode();
+    // execute();
+    // refactor into, if possible 
+    
+    uint16_t opcode = (memory[program_counter] << 8) | memory[program_counter + 1];
+    program_counter += 2;
+
+    uint8_t category = (opcode & 0xF000) >> 12;
+    uint8_t X = (opcode & 0x0F00) >> 8;
+    uint8_t Y = (opcode & 0x00F0) >> 4;
+    uint8_t N = opcode & 0x000F;
+    uint8_t NN = opcode & 0x00FF;
+    uint16_t NNN = opcode & 0x0FFF;
+
+   switch (category) {
+    case 0x0:
+        if (Y == 0xE) {
+            for (int i = 0; i < (32 * 64); ++i) {
+                display[i] = 0x0;
+            }
+        }
+        break;    
+
+    case 0x1:
+        program_counter = NNN;
+        break;
+
+    case 0x6:
+        // uint8_t second_nib = X;
+        registers[X] = NN;
+        break;
+
+    case 0x7:
+        registers[X] += NN;
+        break;
+
+    case 0xA:
+        index_register = NNN;
+        break;
+
+    case 0xD:
+        uint8_t start_X = registers[X];
+        uint8_t start_Y = registers[Y];
+
+        start_X %= 64;
+        start_Y %= 32;
+
+        registers[0xF] = 0;
+
+        // uint8_t spriteBytes =  
+        for (int row = 0; row < N; ++row) {
+            uint8_t sprite_byte = memory[index_register + row];
+
+            for (int col = 0; col < 8; ++col) {
+                uint8_t sprite_pixel = sprite_byte & (0x80 >> col);
+
+                if (sprite_pixel) {
+                    int display_X = (start_X + col) % 64;
+                    int display_Y = (start_Y + row) % 32;
+                    int screen_index = (display_Y * 64) + display_X;
+
+                    if (display[screen_index]) registers[0xF] = 1;
+                    display[screen_index] ^= 1;
+                }
+
+            }
+        }
+
+
+
+
+        break;
+   }
+
+}
+
+
+void Chip8::debugPrintDisplay() {
+    for (int i = 0; i < 64 * 32; i++) {
+        cout << (display[i] ? "#" : " ");
+
+        if ((i + 1) % 64 == 0) {
+            cout << "\n";
+        }
+    }
+    cout << "\n";
+}

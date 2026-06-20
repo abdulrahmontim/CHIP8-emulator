@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <chip8.h>
 
 using namespace std;
 
@@ -9,6 +10,21 @@ const int SCREEN_HEIGHT = 320;
 
 
 int main(int argc, char* argv[]) {
+    Chip8 chip = Chip8();
+    chip.reset();
+    
+    if (!chip.loadROM("roms/IBMLogo.ch8")) {
+        cerr << "Failed to load ROM!" << endl;
+        return 1;
+    }
+    
+    cout << "ROM loaded. Running 500 cycles..." << endl;
+    for (int i = 0; i < 500; i++) {
+        chip.emulateCycle();
+    }
+
+    chip.debugPrintDisplay();
+    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
         return 1;
@@ -51,8 +67,6 @@ int main(int argc, char* argv[]) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
-    
 
     return 0;
 }

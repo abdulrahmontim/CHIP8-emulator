@@ -1,6 +1,6 @@
 CXX      = g++
 CXXFLAGS = -Iinclude -Wall
-LDFLAGS  = -Llib -lmingw32 -lSDL2main -lSDL2 -mwindows
+LDFLAGS  = -Llib -lmingw32 -lSDL2main -lSDL2
 
 SRC = src/main.cpp src/chip8.cpp
 OUT = build/chip8
