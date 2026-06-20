@@ -894,7 +894,7 @@ void test_opcode_fx33_bcd_255() {
 void test_opcode_fx55_ld_i_vx() {
     Chip8 c;
     c.reset();
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i <= 8; i++)
         c.registers[i] = 0x10 + i;
     c.index_register = 0x300;
     place_opcode(c, 0x200, 0xF855);
