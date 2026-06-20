@@ -9,7 +9,7 @@ struct Chip8 {
     uint8_t registers[16] {};
     uint16_t index_register {};
 
-    uint8_t stack[16] {};
+    uint16_t stack[16] {};
     uint8_t stack_pointer {};
     uint16_t program_counter {};
 
