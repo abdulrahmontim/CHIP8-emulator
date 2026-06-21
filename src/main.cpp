@@ -9,6 +9,14 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 320;
 const int SCALE = 10;
 
+static bool beep_active = false;
+
+void audio_callback(void* userdata, Uint8* stream, int len) {
+    for (int i = 0; i < len; i++) {
+        stream[i] = (beep_active && (i % 80 < 40)) ? 200 : 128;
+    }
+}
+
 uint8_t mapKey(int sym) {
     switch (sym) {
         case '1': return 0x1; case '2': return 0x2; case '3': return 0x3; case '4': return 0xC;
