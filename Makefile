@@ -8,14 +8,20 @@ OUT = build/chip8
 TEST_SOURCES := $(wildcard tests/test_*.cpp)
 TEST_TARGETS := $(patsubst tests/test_%.cpp,tests/test_%,$(TEST_SOURCES))
 
-.PHONY: all tests clean
+ROM ?= IBMLogo.ch8
+RUN_ROM = roms/$(ROM)
 
-all: $(OUT)
+.PHONY: all build run tests clean
+
+all build: $(OUT)
+
+run: $(OUT)
+	./$(OUT) $(RUN_ROM)
 
 $(OUT): $(SRC)
 	-mkdir build
 	$(CXX) $(CXXFLAGS) $(SRC) $(LDFLAGS) -o $(OUT)
-	cp lib/SDL2.dll build/
+	-cp lib/SDL2.dll build/
 
 tests/test_%: tests/test_%.cpp src/chip8.cpp
 	-mkdir build
