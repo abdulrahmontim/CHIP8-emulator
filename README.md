@@ -119,7 +119,7 @@ chip8-emulator/
 │   └── main.cpp         # Entry point, SDL render loop, audio, input
 ├── tests/
 │   ├── test_cpu.cpp     # CPU reset state tests (6 tests)
-│   ├── test_opcodes.cpp # All 35 opcode tests (68 tests)
+│   ├── test_opcodes.cpp # All 35 opcode tests (75 tests)
 │   └── test_rom.cpp     # ROM loading tests (4 tests)
 ├── lib/                  # Prebuilt SDL2 libraries and DLL
 ├── roms/                 # CHIP-8 game ROMs
