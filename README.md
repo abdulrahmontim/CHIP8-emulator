@@ -10,7 +10,7 @@ A CHIP-8 emulator written in C++ with SDL2, built to learn low-level emulation c
 - Audio beep via SDL audio (square wave at ~550Hz when sound timer is active)
 - Keyboard input mapped to CHIP-8 hex keypad
 - IBM logo and 24 game ROMs included
-- Test suite: 68 opcode tests, CPU reset tests, ROM loading tests
+- Test suite: 75 opcode tests, 6 CPU reset tests, 4 ROM loading tests
 
 ## Prerequisites
 
